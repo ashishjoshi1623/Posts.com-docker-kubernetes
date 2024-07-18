@@ -1,0 +1,66 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: practice
+build:
+  local:
+    push: false
+  artifacts:
+    - image: client-img
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .  
+    - image: comment-img
+      context: Comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .  
+    - image: eventbus-img
+      context: EventBus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .  
+    - image: moderation-img
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .  
+    - image: posts-img
+      context: Posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .  
+    - image: query-img
+      context: Query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .  
+manifests:
+  rawYaml:
+    - Infra/k8s/client-depl.yaml
+    - Infra/k8s/comments-depl.yaml
+    - Infra/k8s/eventbus-depl.yaml
+    - Infra/k8s/ingress-srv.yaml
+    - Infra/k8s/moderation-depl.yaml
+    - Infra/k8s/posts-depl.yaml
+    - Infra/k8s/posts.yaml.basicOldWayConfigFile
+    - Infra/k8s/query-depl.yaml
